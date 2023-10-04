@@ -30,4 +30,10 @@ public class TicketServiceTests {
     public void valid_AccountId_should_not_throw_exception() {
         assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId));
     }
+
+    @Test
+    public void no_tickets_requested_throws_exception() {
+        var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId));
+        assertEquals("No tickets requested", exception.getMessage());
+    }
 }
