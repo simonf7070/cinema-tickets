@@ -40,6 +40,14 @@ public class TicketServiceTests {
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId));
         assertEquals("No tickets requested", exception.getMessage());
     }
+    
+    @Test
+    public void zero_quantity_of_tickets_requested_throws_exception() {
+        var zeroTickets = new TicketTypeRequest(Type.ADULT, 0);
+
+        var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, zeroTickets));
+        assertEquals("No tickets requested", exception.getMessage());
+    }
 
     @Test
     public void cannot_request_child_ticket_without_an_adult() {
