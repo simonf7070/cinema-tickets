@@ -116,4 +116,15 @@ public class TicketCalculatorTests {
         
         assertEquals(0, ticketCalculator.getTotalCost(tickets));
     }
+    
+    @Test
+    public void getTotalCost_should_be_correct_when_a_mixture_requested() {
+        TicketTypeRequest[] tickets = {
+            new TicketTypeRequest(Type.ADULT, 3),
+            new TicketTypeRequest(Type.CHILD, 6),
+            new TicketTypeRequest(Type.INFANT, 2)
+        };
+        
+        assertEquals(120, ticketCalculator.getTotalCost(tickets));
+    }
 }
