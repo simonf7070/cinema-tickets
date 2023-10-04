@@ -18,7 +18,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private void validateTicketTypeRequests(TicketTypeRequest... ticketTypeRequests) {
-        if (ticketTypeRequests.length == 0) {
+        long totalTicketCount = Stream.of(ticketTypeRequests)
+            .mapToInt(x -> x.getNoOfTickets())
+            .sum();
+
+        if (totalTicketCount == 0) {
             throw new InvalidPurchaseException("No tickets requested");
         }
 
