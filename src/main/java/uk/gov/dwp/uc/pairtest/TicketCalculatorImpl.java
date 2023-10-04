@@ -7,6 +7,8 @@ import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type;
 
 public class TicketCalculatorImpl implements TicketCalculator {
 
+    private final int adultSeatPrice = 20;
+
     @Override
     public int getNumberOfSeats(TicketTypeRequest... ticketTypeRequests) {
         return Stream.of(ticketTypeRequests)
@@ -22,6 +24,6 @@ public class TicketCalculatorImpl implements TicketCalculator {
             .mapToInt(t -> t.getNoOfTickets())
             .sum();
 
-        return adultSeatCount * 20;
+        return adultSeatCount * adultSeatPrice;
     }
 }

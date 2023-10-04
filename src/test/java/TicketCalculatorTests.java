@@ -91,7 +91,7 @@ public class TicketCalculatorTests {
     }
     
     @Test
-    public void getTotalCost_should_be_20_when_two_adult_tickets_requested() {
+    public void getTotalCost_should_be_40_when_two_adult_tickets_requested() {
         TicketTypeRequest[] tickets = {
             new TicketTypeRequest(Type.ADULT, 2)
         };
