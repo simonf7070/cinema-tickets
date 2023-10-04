@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import uk.gov.dwp.uc.pairtest.TicketService;
 import uk.gov.dwp.uc.pairtest.TicketServiceImpl;
+import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
 public class TicketServiceTests {
@@ -28,7 +29,7 @@ public class TicketServiceTests {
         
     @Test
     public void valid_AccountId_should_not_throw_exception() {
-        assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId));
+        assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId, new TicketTypeRequest[1]));
     }
 
     @Test
