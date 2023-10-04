@@ -89,4 +89,13 @@ public class TicketCalculatorTests {
         
         assertEquals(0, ticketCalculator.getTotalCost(tickets));
     }
+    
+    @Test
+    public void getTotalCost_should_be_20_when_two_adult_tickets_requested() {
+        TicketTypeRequest[] tickets = {
+            new TicketTypeRequest(Type.ADULT, 2)
+        };
+        
+        assertEquals(40, ticketCalculator.getTotalCost(tickets));
+    }
 }

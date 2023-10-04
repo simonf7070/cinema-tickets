@@ -17,6 +17,11 @@ public class TicketCalculatorImpl implements TicketCalculator {
 
     @Override
     public int getTotalCost(TicketTypeRequest... ticketTypeRequests) {
-        return 0;
+        var adultSeatCount = Stream.of(ticketTypeRequests)
+            .filter(t -> t.getTicketType() == Type.ADULT)
+            .mapToInt(t -> t.getNoOfTickets())
+            .sum();
+
+        return adultSeatCount * 20;
     }
 }
