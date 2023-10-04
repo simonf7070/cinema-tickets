@@ -98,4 +98,22 @@ public class TicketCalculatorTests {
         
         assertEquals(40, ticketCalculator.getTotalCost(tickets));
     }
+
+    @Test
+    public void getTotalCost_should_be_10_when_one_child_ticket_requested() {
+        TicketTypeRequest[] tickets = {
+            new TicketTypeRequest(Type.CHILD, 1)
+        };
+        
+        assertEquals(10, ticketCalculator.getTotalCost(tickets));
+    }
+
+    @Test
+    public void getTotalCost_should_be_zero_when_one_infant_ticket_requested() {
+        TicketTypeRequest[] tickets = {
+            new TicketTypeRequest(Type.INFANT, 1)
+        };
+        
+        assertEquals(0, ticketCalculator.getTotalCost(tickets));
+    }
 }
