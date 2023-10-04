@@ -27,5 +27,11 @@ public class TicketCalculatorTests {
 
         assertEquals(0, ticketCalculator.getNumberOfSeats(tickets));
     }  
- 
+
+    @Test
+    public void getNumberOfSeats_should_be_one_when_one_adult_requested() {
+        var tickets = new TicketTypeRequest(Type.ADULT, 1);
+        
+        assertEquals(1, ticketCalculator.getNumberOfSeats(tickets));
+    }
 }

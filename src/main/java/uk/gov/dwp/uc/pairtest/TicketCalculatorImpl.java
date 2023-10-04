@@ -1,11 +1,15 @@
 package uk.gov.dwp.uc.pairtest;
 
+import java.util.stream.Stream;
+
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 
 public class TicketCalculatorImpl implements TicketCalculator {
 
     @Override
     public int getNumberOfSeats(TicketTypeRequest... ticketTypeRequests) {
-        return 0;
+        return Stream.of(ticketTypeRequests)
+            .mapToInt(t -> t.getNoOfTickets())
+            .sum();
     }
 }
