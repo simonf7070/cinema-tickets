@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.Test;
 
@@ -16,5 +17,13 @@ public class TicketServiceTests {
 
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(invalidAccountId));
         assertEquals("Invalid Account Id", exception.getMessage());
+    }
+        
+    @Test
+    public void Valid_AccountId_should_not_throw_exception() {
+        final var validAccountId = 0L;
+        TicketService ticketService = new TicketServiceImpl();        
+
+        assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId));
     }
 }
