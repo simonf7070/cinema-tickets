@@ -29,7 +29,9 @@ public class TicketServiceTests {
         
     @Test
     public void valid_AccountId_should_not_throw_exception() {
-        assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId, new TicketTypeRequest[1]));
+        var tickets = new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 1);
+
+        assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId, tickets));
     }
 
     @Test
