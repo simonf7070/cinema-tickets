@@ -37,4 +37,12 @@ public class TicketServiceTests {
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId));
         assertEquals("No tickets requested", exception.getMessage());
     }
+
+    @Test
+    public void cannot_request_child_ticket_without_an_adult() {
+        var tickets = new TicketTypeRequest(TicketTypeRequest.Type.CHILD, 1);
+
+        var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, tickets));
+        assertEquals("Cannot request child or infant tickets without an adult", exception.getMessage());
+    }
 }
