@@ -27,5 +27,19 @@ public class TicketServiceImpl implements TicketService {
         if (!includesAdultTicket) {
             throw new InvalidPurchaseException("Cannot request child or infant tickets without an adult");
         }
+
+        long adultCount = Stream.of(ticketTypeRequests)
+            .filter(x -> x.getTicketType() == Type.ADULT)
+            .mapToInt(x -> x.getNoOfTickets())
+            .sum();
+
+        long infantCount = Stream.of(ticketTypeRequests)
+            .filter(x -> x.getTicketType() == Type.INFANT)
+            .mapToInt(x -> x.getNoOfTickets())
+            .sum();
+
+        if (adultCount < infantCount) {
+            throw new InvalidPurchaseException("Cannot request an Infant ticket without an accompanying Adult ticket");
+        }
     }
 }
