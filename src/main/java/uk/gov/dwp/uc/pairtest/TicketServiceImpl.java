@@ -31,6 +31,12 @@ public class TicketServiceImpl implements TicketService {
         ticketPaymentService.makePayment(accountId, totalAmountToPay);
     }
 
+    private void validateAccount(Long accountId) {
+        if (accountId < 0L) {
+            throw new InvalidPurchaseException("Invalid Account Id");
+        }
+    }
+
     private void validateTicketTypeRequests(TicketTypeRequest... ticketTypeRequests) {
         final Long maxNumbertOfTickets = 20L;
 
@@ -65,12 +71,6 @@ public class TicketServiceImpl implements TicketService {
 
         if (adultCount < infantCount) {
             throw new InvalidPurchaseException("Cannot request an Infant ticket without an accompanying Adult ticket");
-        }
-    }
-
-    private void validateAccount(Long accountId) {
-        if (accountId < 0L) {
-            throw new InvalidPurchaseException("Invalid Account Id");
         }
     }
 }
