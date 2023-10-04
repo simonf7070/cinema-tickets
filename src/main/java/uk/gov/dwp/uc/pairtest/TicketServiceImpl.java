@@ -3,6 +3,7 @@ package uk.gov.dwp.uc.pairtest;
 import java.util.stream.Stream;
 
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
+import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
 public class TicketServiceImpl implements TicketService {
@@ -21,7 +22,7 @@ public class TicketServiceImpl implements TicketService {
         }
 
         boolean includesAdultTicket = Stream.of(ticketTypeRequests)
-            .anyMatch(t -> t.getTicketType() == TicketTypeRequest.Type.ADULT);
+            .anyMatch(t -> t.getTicketType() == Type.ADULT);
 
         if (!includesAdultTicket) {
             throw new InvalidPurchaseException("Cannot request child or infant tickets without an adult");

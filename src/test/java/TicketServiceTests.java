@@ -8,6 +8,7 @@ import org.junit.Test;
 import uk.gov.dwp.uc.pairtest.TicketService;
 import uk.gov.dwp.uc.pairtest.TicketServiceImpl;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
+import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
 public class TicketServiceTests {
@@ -29,7 +30,7 @@ public class TicketServiceTests {
         
     @Test
     public void valid_AccountId_should_not_throw_exception() {
-        var tickets = new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 1);
+        var tickets = new TicketTypeRequest(Type.ADULT, 1);
 
         assertDoesNotThrow(() -> ticketService.purchaseTickets(validAccountId, tickets));
     }
@@ -42,7 +43,7 @@ public class TicketServiceTests {
 
     @Test
     public void cannot_request_child_ticket_without_an_adult() {
-        var tickets = new TicketTypeRequest(TicketTypeRequest.Type.CHILD, 1);
+        var tickets = new TicketTypeRequest(Type.CHILD, 1);
 
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, tickets));
         assertEquals("Cannot request child or infant tickets without an adult", exception.getMessage());
