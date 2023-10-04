@@ -50,7 +50,7 @@ public class TicketServiceTests {
     }
 
     @Test
-    public void cannot_request_child_ticket_without_an_adult() {
+    public void cannot_request_child_ticket_without_an_adult_throws_exception() {
         var tickets = new TicketTypeRequest(Type.CHILD, 1);
 
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, tickets));
@@ -58,7 +58,7 @@ public class TicketServiceTests {
     }
     
     @Test
-    public void cannot_request_infant_ticket_without_an_adult() {
+    public void cannot_request_infant_ticket_without_an_adult_throws_exception() {
         var tickets = new TicketTypeRequest(Type.INFANT, 1);
 
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, tickets));
@@ -66,11 +66,19 @@ public class TicketServiceTests {
     }
 
     @Test
-    public void each_infant_must_be_accompanied_by_an_adult() {
+    public void each_infant_must_be_accompanied_by_an_adult_throws_exception() {
         var twoInfantTickets = new TicketTypeRequest(Type.INFANT, 2);
         var oneAdultTicket = new TicketTypeRequest(Type.ADULT, 1);
 
         var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, twoInfantTickets, oneAdultTicket));
         assertEquals("Cannot request an Infant ticket without an accompanying Adult ticket", exception.getMessage());
+    }
+
+    @Test
+    public void cannot_request_more_than_max_number_of_tickets_throws_exception() {
+        var exceedMaxNumberOfTickets = new TicketTypeRequest(Type.ADULT, 21);
+
+        var exception = assertThrows(InvalidPurchaseException.class, () -> ticketService.purchaseTickets(validAccountId, exceedMaxNumberOfTickets));
+        assertEquals("Cannot request more than maximum number of tickets", exception.getMessage());
     }
 }
