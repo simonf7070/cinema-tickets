@@ -14,7 +14,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void purchaseTickets(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
         validateAccount(accountId);
+        validateTicketTypeRequests(ticketTypeRequests);
+    }
 
+    private void validateTicketTypeRequests(TicketTypeRequest... ticketTypeRequests) {
         if (ticketTypeRequests.length == 0) {
             throw new InvalidPurchaseException("No tickets requested");
         }
