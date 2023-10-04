@@ -13,9 +13,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void purchaseTickets(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
-        if (accountId < 0L) {
-            throw new InvalidPurchaseException("Invalid Account Id");
-        }
+        validateAccount(accountId);
 
         if (ticketTypeRequests.length == 0) {
             throw new InvalidPurchaseException("No tickets requested");
@@ -40,6 +38,12 @@ public class TicketServiceImpl implements TicketService {
 
         if (adultCount < infantCount) {
             throw new InvalidPurchaseException("Cannot request an Infant ticket without an accompanying Adult ticket");
+        }
+    }
+
+    private void validateAccount(Long accountId) {
+        if (accountId < 0L) {
+            throw new InvalidPurchaseException("Invalid Account Id");
         }
     }
 }
