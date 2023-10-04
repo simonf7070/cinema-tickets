@@ -2,6 +2,8 @@ package uk.gov.dwp.uc.pairtest;
 
 import java.util.stream.Stream;
 
+import thirdparty.paymentgateway.TicketPaymentService;
+import thirdparty.paymentgateway.TicketPaymentServiceImpl;
 import thirdparty.seatbooking.SeatReservationService;
 import thirdparty.seatbooking.SeatReservationServiceImpl;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
@@ -20,9 +22,13 @@ public class TicketServiceImpl implements TicketService {
 
         TicketCalculator ticketCalculator = new TicketCalculatorImpl();
         var totalSeatCount = ticketCalculator.getNumberOfSeats(ticketTypeRequests);
+        var totalAmountToPay = ticketCalculator.getTotalCost(ticketTypeRequests);
 
         SeatReservationService seatReservationService = new SeatReservationServiceImpl();
         seatReservationService.reserveSeat(accountId, totalSeatCount);
+
+        TicketPaymentService ticketPaymentService = new TicketPaymentServiceImpl();
+        ticketPaymentService.makePayment(accountId, totalAmountToPay);
     }
 
     private void validateTicketTypeRequests(TicketTypeRequest... ticketTypeRequests) {
