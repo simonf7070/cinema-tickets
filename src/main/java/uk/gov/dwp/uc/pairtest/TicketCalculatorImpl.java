@@ -14,4 +14,9 @@ public class TicketCalculatorImpl implements TicketCalculator {
             .mapToInt(t -> t.getNoOfTickets())
             .sum();
     }
+
+    @Override
+    public int getTotalCost(TicketTypeRequest... ticketTypeRequests) {
+        return 0;
+    }
 }

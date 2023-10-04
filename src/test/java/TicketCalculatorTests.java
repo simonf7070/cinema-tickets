@@ -75,4 +75,18 @@ public class TicketCalculatorTests {
         
         assertEquals(9, ticketCalculator.getNumberOfSeats(tickets));
     }
+
+    @Test
+    public void getTotalCost_should_be_zero_when_no_tickets_requested() {
+        assertEquals(0, ticketCalculator.getTotalCost());
+    }
+
+    @Test
+    public void getTotalCost_should_be_zero_when_tickets_with_quantity_zero_requested() {
+        TicketTypeRequest[] tickets = {
+            new TicketTypeRequest(Type.ADULT, 0)
+        };
+        
+        assertEquals(0, ticketCalculator.getTotalCost(tickets));
+    }
 }
