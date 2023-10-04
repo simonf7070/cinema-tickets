@@ -18,12 +18,18 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private void validateTicketTypeRequests(TicketTypeRequest... ticketTypeRequests) {
+        final Long maxNumbertOfTickets = 20L;
+
         long totalTicketCount = Stream.of(ticketTypeRequests)
             .mapToInt(x -> x.getNoOfTickets())
             .sum();
 
-        if (totalTicketCount == 0) {
+        if (totalTicketCount == 0L) {
             throw new InvalidPurchaseException("No tickets requested");
+        }
+        
+        if (totalTicketCount > maxNumbertOfTickets) {
+            throw new InvalidPurchaseException("Cannot request more than maximum number of tickets");
         }
 
         boolean includesAdultTicket = Stream.of(ticketTypeRequests)
