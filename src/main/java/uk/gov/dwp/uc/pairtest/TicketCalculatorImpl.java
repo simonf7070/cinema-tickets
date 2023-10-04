@@ -30,6 +30,9 @@ public class TicketCalculatorImpl implements TicketCalculator {
             .mapToInt(t -> t.getNoOfTickets())
             .sum();
 
-        return adultSeatCount * adultSeatPrice + childSeatCount * childSeatPrice;
+        int totalAdultCost = adultSeatCount * adultSeatPrice;
+        int totalChildCost = childSeatCount * childSeatPrice;
+        
+        return totalAdultCost + totalChildCost;
     }
 }
