@@ -64,4 +64,15 @@ public class TicketCalculatorTests {
         
         assertEquals(1, ticketCalculator.getNumberOfSeats(tickets));
     }
+            
+    @Test
+    public void getNumberOfSeats_should_be_correct_when_a_mixture_requested() {
+        TicketTypeRequest[] tickets = {
+            new TicketTypeRequest(Type.ADULT, 3),
+            new TicketTypeRequest(Type.CHILD, 6),
+            new TicketTypeRequest(Type.INFANT, 2)
+        };
+        
+        assertEquals(9, ticketCalculator.getNumberOfSeats(tickets));
+    }
 }
